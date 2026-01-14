@@ -13,7 +13,8 @@ export const Home: React.FC = () => {
     minPrice: 0,
     maxPrice: 200,
     sortBy: 'date',
-    order: 'desc'
+    order: 'desc',
+    q: ''
   });
 
   const categories = ['All', 'Oriental', 'Marine', 'Floral', 'Citrus', 'Woody'];
@@ -48,8 +49,36 @@ export const Home: React.FC = () => {
       <HeroBanner />
       
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 gap-8 bg-white p-6 rounded-lg border border-stone-100 shadow-sm">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 gap-8 bg-white p-6 rounded-lg border border-stone-100 shadow-sm">
           <div className="w-full flex flex-wrap gap-6 items-end">
+            
+            {/* Search Bar */}
+            <div className="flex flex-col w-full md:w-64">
+              <label className="text-[10px] uppercase tracking-widest font-bold mb-2 text-stone-400">Search</label>
+              <div className="relative">
+                <input 
+                  type="text"
+                  placeholder="Find a fragrance..."
+                  value={filters.q}
+                  onChange={(e) => setFilters(prev => ({ ...prev, q: e.target.value }))}
+                  className="w-full bg-stone-50 border border-stone-200 px-10 py-2 text-sm focus:outline-none focus:border-stone-900 transition-colors"
+                />
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                {filters.q && (
+                  <button 
+                    onClick={() => setFilters(prev => ({ ...prev, q: '' }))}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-900"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+            </div>
+
             {/* Category Filter */}
             <div className="flex flex-col">
               <label className="text-[10px] uppercase tracking-widest font-bold mb-2 text-stone-400">Category</label>
@@ -82,20 +111,6 @@ export const Home: React.FC = () => {
                   className="w-20 bg-stone-50 border border-stone-200 px-2 py-2 text-sm focus:outline-none focus:border-stone-900"
                 />
               </div>
-            </div>
-
-            {/* Quick Slider */}
-            <div className="flex flex-col hidden sm:flex">
-              <label className="text-[10px] uppercase tracking-widest font-bold mb-2 text-stone-400">Max Price Limit: ${filters.maxPrice}</label>
-              <input 
-                type="range" 
-                min="0" 
-                max="200" 
-                step="5"
-                value={filters.maxPrice}
-                onChange={(e) => setFilters(prev => ({ ...prev, maxPrice: Number(e.target.value) }))}
-                className="w-32 accent-stone-900 cursor-pointer"
-              />
             </div>
 
             {/* Sort */}
@@ -138,9 +153,9 @@ export const Home: React.FC = () => {
         ) : products.length === 0 ? (
           <div className="py-32 text-center bg-stone-50 rounded-xl border border-dashed border-stone-200">
             <h3 className="text-2xl serif mb-4">No matches found</h3>
-            <p className="text-stone-500 mb-6 font-light">Try adjusting your filters or price range to explore more scents.</p>
+            <p className="text-stone-500 mb-6 font-light">Try adjusting your filters or search terms to explore more scents.</p>
             <button 
-              onClick={() => setFilters({ category: 'All', minPrice: 0, maxPrice: 200, sortBy: 'date', order: 'desc' })}
+              onClick={() => setFilters({ category: 'All', minPrice: 0, maxPrice: 200, sortBy: 'date', order: 'desc', q: '' })}
               className="bg-stone-900 text-white px-8 py-3 uppercase tracking-widest text-xs font-bold hover:bg-stone-800 transition-all"
             >
               Reset All Filters

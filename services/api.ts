@@ -7,6 +7,7 @@ export interface ProductFilters {
   maxPrice?: number;
   sortBy?: 'price' | 'name' | 'date';
   order?: 'asc' | 'desc';
+  q?: string;
 }
 
 class MockBackend {
@@ -104,18 +105,32 @@ class MockBackend {
     await new Promise(r => setTimeout(r, 400));
     let filtered = [...this.products];
 
+    // Search Query Filtering
+    if (filters.q) {
+      const query = filters.q.toLowerCase();
+      filtered = filtered.filter(p => 
+        p.name.toLowerCase().includes(query) || 
+        p.description.toLowerCase().includes(query) ||
+        p.shortDescription.toLowerCase().includes(query)
+      );
+    }
+
+    // Category Filtering
     if (filters.category && filters.category !== 'All') {
       filtered = filtered.filter(p => p.category.toLowerCase() === filters.category!.toLowerCase());
     }
 
+    // Min Price Filtering
     if (filters.minPrice !== undefined) {
       filtered = filtered.filter(p => p.basePrice >= filters.minPrice!);
     }
 
+    // Max Price Filtering
     if (filters.maxPrice !== undefined) {
       filtered = filtered.filter(p => p.basePrice <= filters.maxPrice!);
     }
 
+    // Sorting
     if (filters.sortBy) {
       filtered.sort((a, b) => {
         let valA: any;

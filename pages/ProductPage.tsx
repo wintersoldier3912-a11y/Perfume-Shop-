@@ -53,6 +53,18 @@ export const ProductPage: React.FC = () => {
     }
   };
 
+  const navigateImage = (direction: 'next' | 'prev') => {
+    if (!product) return;
+    const currentIndex = product.images.indexOf(selectedImage);
+    let nextIndex;
+    if (direction === 'next') {
+      nextIndex = (currentIndex + 1) % product.images.length;
+    } else {
+      nextIndex = (currentIndex - 1 + product.images.length) % product.images.length;
+    }
+    setSelectedImage(product.images[nextIndex]);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -81,8 +93,32 @@ export const ProductPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
         {/* Gallery */}
         <div className="space-y-4">
-          <div className="aspect-[4/5] overflow-hidden bg-stone-100 shadow-sm">
+          <div className="relative aspect-[4/5] overflow-hidden bg-stone-100 shadow-sm group">
             <img src={selectedImage} alt={product.name} className="w-full h-full object-cover transition-all duration-500" />
+            
+            {/* Navigation Arrows */}
+            {product.images.length > 1 && (
+              <>
+                <button 
+                  onClick={() => navigateImage('prev')}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-white text-stone-900"
+                  aria-label="Previous image"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button 
+                  onClick={() => navigateImage('next')}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-white text-stone-900"
+                  aria-label="Next image"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </>
+            )}
           </div>
           <div className="grid grid-cols-3 gap-4">
             {product.images.map((img, idx) => (
