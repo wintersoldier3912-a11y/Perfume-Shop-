@@ -24,7 +24,7 @@ class MockBackend {
         { sizeLabel: '50ml', price: 68.0, sku: 'NV-50' }
       ],
       images: [
-        'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=800',
+        'https://images.unsplash.com/photo-1585120040315-2241b774ad0f?auto=format&fit=crop&q=80&w=800',
         'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800',
         'https://images.unsplash.com/photo-1512789675373-06a989f6683a?auto=format&fit=crop&q=80&w=800'
       ],
