@@ -32,10 +32,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <div className="group block relative transition-all duration-500">
       <Link to={`/product/${product._id}`} className="block">
         <div className="relative aspect-[3/4] overflow-hidden bg-stone-100 mb-6 transition-all duration-700 ease-out rounded-sm shadow-sm group-hover:shadow-2xl group-hover:-translate-y-1 border border-transparent group-hover:border-stone-200/50">
-          {/* Subtle Zoom Image */}
+          {/* Subtle Zoom Image with Lazy Loading */}
           <img 
             src={product.images[0]} 
             alt={product.name}
+            loading="lazy"
             className="w-full h-full object-cover transition-transform duration-[1500ms] cubic-bezier(0.16, 1, 0.3, 1) group-hover:scale-110"
           />
           

@@ -94,7 +94,12 @@ export const ProductPage: React.FC = () => {
         {/* Gallery */}
         <div className="space-y-4">
           <div className="relative aspect-[4/5] overflow-hidden bg-stone-100 shadow-sm group">
-            <img src={selectedImage} alt={product.name} className="w-full h-full object-cover transition-all duration-500" />
+            <img 
+              src={selectedImage} 
+              alt={product.name} 
+              loading="lazy"
+              className="w-full h-full object-cover transition-all duration-500" 
+            />
             
             {/* Navigation Arrows */}
             {product.images.length > 1 && (
@@ -127,7 +132,12 @@ export const ProductPage: React.FC = () => {
                 onClick={() => setSelectedImage(img)}
                 className={`aspect-square overflow-hidden border-2 transition-all ${selectedImage === img ? 'border-stone-900' : 'border-transparent opacity-60 hover:opacity-100'}`}
               >
-                <img src={img} alt={`${product.name} thumb ${idx}`} className="w-full h-full object-cover" />
+                <img 
+                  src={img} 
+                  alt={`${product.name} thumb ${idx}`} 
+                  loading="lazy"
+                  className="w-full h-full object-cover" 
+                />
               </button>
             ))}
           </div>

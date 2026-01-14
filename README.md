@@ -2,8 +2,6 @@
 
 Essence Luxe is a premium e-commerce experience designed for luxury fragrance enthusiasts. This application features a modern, responsive interface with high-performance filtering, sorting, and personalized user features.
 
-![Essence Luxe Hero](https://images.unsplash.com/photo-1583468982228-19f19164aee2?auto=format&fit=crop&q=80&w=1200)
-
 ## ✨ Key Features
 
 - **Dynamic Collections**: Browse our curated catalog with real-time filtering by category (Floral, Woody, Oriental, etc.) and price range.
